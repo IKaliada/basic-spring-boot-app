@@ -23,7 +23,7 @@ public class EmployeeService {
         Employee savedEmployee = employeeRepository.save(employee);
         EmployeeResponse employeeResponse = new EmployeeResponse();
         employeeResponse.setId(savedEmployee.getId());
-        log.warn("User was created id = " + savedEmployee.getId());
+        log.warn("User was created with id = " + savedEmployee.getId());
         return employeeResponse;
     }
 
