@@ -21,8 +21,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:$VERSION \
-                       -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:latest .
+          docker build -f docker/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:$VERSION \
+                       -f docker/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:latest .
 
       - name: Push Docker image
         run: |
