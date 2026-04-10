@@ -19,5 +19,5 @@ jobs:
 
       - name: Build & Test
         run: mvn clean verify
-        env:
-            SPRING_PROFILES_ACTIVE: h2
+        env: 
+         SPRING_PROFILES_ACTIVE: h2
