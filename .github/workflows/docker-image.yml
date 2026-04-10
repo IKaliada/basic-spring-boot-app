@@ -1,0 +1,30 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:$VERSION \
+                       -t ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:$VERSION
+          docker push ${{ secrets.DOCKER_USERNAME }}/basic-spring-boot-app:latest
